@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: HealthGuard API
+  version: 1.0.0
+paths:
+  /check-symptoms:
+    post:
+      summary: Check health symptoms risk
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                symptoms:
+                  type: array
+                  items:
+                    type: string
+                name:
+                  type: string
+                  description: Optional patient name to save assessment
+      responses:
+        '200':
+          description: Risk evaluation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  risk:
+                    type: string
+                  score:
+                    type: number
+                  normalizedScore:
+                    type: number
+                  message:
+                    type: string
+  /assessments:
+    get:
+      summary: Get all patient assessments
+      responses:
+        '200':
+          description: List of patient assessments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+                    symptoms:
+                      type: array
+                      items:
+                        type: string
+                    score:
+                      type: number
+                    normalizedScore:
+                      type: number
+                    risk:
+                      type: string
+                    time:
+                      type: string
+                      format: date-time
